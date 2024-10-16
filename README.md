@@ -177,18 +177,249 @@ https://engineeringxpert.com/wp-content/uploads/2022/04/26.png
 
 ![image](https://user-images.githubusercontent.com/36288975/233856904-99eb708a-c907-4595-9025-c9dbd89b8879.png)
 
-## CIRCUIT DIAGRAM 
- 
-
 ## STM 32 CUBE PROGRAM :
+```
+#include "main.h"
+#include <stdbool.h>
+#include "lcd.h"
 
+bool col1,col2,col3,col4;
+void key();
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  /* USER CODE BEGIN 2 */
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+	  key();
+	  HAL_Delay(500);
+    /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
+}
+void key()
+{
+	Lcd_PortType ports[] = { GPIOA, GPIOA, GPIOA, GPIOA };
+	Lcd_PinType pins[] = {GPIO_PIN_3, GPIO_PIN_2, GPIO_PIN_1, GPIO_PIN_0};
+	Lcd_HandleTypeDef lcd;
+	lcd = Lcd_create(ports, pins, GPIOB, GPIO_PIN_0, GPIOB, GPIO_PIN_1, LCD_4_BIT_MODE);
+
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_SET);
+
+	col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+	col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+	col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+	col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+
+ 	if(!col1)
+	{
+		Lcd_cursor(&lcd,0,1);
+		Lcd_string(&lcd, "7\n");
+		col1=1;
+	}
+	if(!col2)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "8\n");
+			col2=1;
+		}
+	if(!col3)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "9\n");
+			col3=1;
+		}
+	if(!col4)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "/\n");
+			col4=1;
+		}
+
+	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_SET);
+		col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+		col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+		col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+		col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+
+		if(!col1)
+		{
+			Lcd_cursor(&lcd,0,1);
+			Lcd_string(&lcd, "4\n");
+			col1=1;
+		}
+		if(!col2)
+			{
+				Lcd_cursor(&lcd,0,1);
+				Lcd_string(&lcd, "5\n");
+				col2=1;
+			}
+		if(!col3)
+			{
+				Lcd_cursor(&lcd,0,1);
+				Lcd_string(&lcd, "6\n");
+				col3=1;
+			}
+		if(!col4)
+			{
+				Lcd_cursor(&lcd,0,1);
+				Lcd_string(&lcd, "*\n");
+				col4=1;
+			}
+ 		HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_SET);
+
+				col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+				col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+				col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+				col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+
+				if(!col1)
+				{
+					Lcd_cursor(&lcd,0,1);
+					Lcd_string(&lcd, "1\n");
+					col1=1;
+				}
+				if(!col2)
+					{
+						Lcd_cursor(&lcd,0,1);
+						Lcd_string(&lcd, "2\n");
+						col2=1;
+					}
+				if(!col3)
+					{
+						Lcd_cursor(&lcd,0,1);
+						Lcd_string(&lcd, "3\n");
+						col3=1;
+					}
+				if(!col4)
+					{
+						Lcd_cursor(&lcd,0,1);
+						Lcd_string(&lcd, "-\n");
+						col4=1;
+					}
+ 				HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_1,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3,GPIO_PIN_RESET);
+
+						col1 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_4);
+						col2 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_5);
+						col3 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_6);
+						col4 =HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_7);
+						if(!col1)
+						{
+							Lcd_cursor(&lcd,0,1);
+							Lcd_string(&lcd, "ON/ac\n");
+							col1=1;
+						}
+						if(!col2)
+							{
+								Lcd_cursor(&lcd,0,1);
+								Lcd_string(&lcd, "0\n");
+								col2=1;
+							}
+						if(!col3)
+							{
+								Lcd_cursor(&lcd,0,1);
+								Lcd_string(&lcd, "=\n");
+								col3=1;
+							}
+						if(!col4)
+							{
+								Lcd_cursor(&lcd,0,1);
+								Lcd_string(&lcd, "+\n");
+								col4=1;
+							}
+						HAL_Delay(500);
+
+}
+```
 
 ## Output screen shots of proteus  :
+![Screenshot 2024-10-16 173257](https://github.com/user-attachments/assets/d3715e43-b2aa-4ef4-9f7f-504c5e8a3bdb)
+
  
- 
- ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- 
+## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
+![Screenshot 2024-10-16 173112](https://github.com/user-attachments/assets/0c446846-8a65-4fa8-abb4-d0e3ecfb0018)
+
  
 ## Result :
 Interfacing a 4x4 keypad with ARM microcontroller are simulated in proteus and the results are verified.
